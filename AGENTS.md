@@ -1,55 +1,32 @@
-# Working in Erdtree
+# Erdtree
 
-## Start here
+Erdtree is the Slotty core service responsible for Slots and Products. The
+service is in early development: distinguish implemented behavior from planned
+features, and confirm requirements before introducing service contracts.
 
-Read `README.md`, `pyproject.toml`, and the relevant code before making changes.
-Read the nearest component `AGENTS.md` if one exists. This project is being
-initialized: distinguish implemented behavior from proposals, and do not invent
-architecture, service contracts, or product requirements.
+## Project map
 
-## Development workflow
+- `app/main.py` creates the FastAPI application and includes the API router.
+- `app/handlers/__init__.py` assembles routers; `app/handlers/root.py` implements
+  the current root, status, and ping endpoints. `app/handlers/v1/` is a placeholder.
+- `pyproject.toml` defines Python requirements and dependencies; `uv.lock` locks
+  them. `Makefile` provides local setup and run shortcuts.
+- `README.md` is the starting point for setup and current endpoint information.
 
-- Inspect the working tree first. Preserve existing user edits and untracked
-  files; do not reset or restore unrelated work.
-- Understand the expected behavior, callers, and relevant edge cases before
-  editing. Keep changes small, clear, and focused on the current task.
-- For features and fixes, write meaningful behavior tests first, confirm they
-  fail for the expected reason, then implement and refactor. For refactors, use
-  existing tests or add characterization tests. Documentation-only edits do not
-  need application tests.
-- Reuse existing conventions. Add dependencies and abstractions only when needed.
-- As setup becomes runnable, document actual install, run, and check commands in
-  `README.md`. Run relevant available checks; report missing checks honestly.
-- Review the final diff against the requirements before reporting completion.
+## Local development
 
-## Branches and commits
+The project requires Python 3.15+ and `uv`. From the repository root:
 
-- Start each new feature on its own branch: `<type>/<short-kebab-case-name>`.
-- Use commit messages such as `feature: Add health endpoint` or
-  `fix: Handle missing configuration`.
-- Keep commits coherent and reviewable. Stage only intended changes and preserve
-  unrelated work.
+- `make init` creates `.venv` and syncs dependencies.
+- `make run` starts the API at `http://localhost:8000`; `/docs` serves the
+  interactive API documentation.
+- `uv add <package>` updates the dependency declaration and lockfile.
 
-## Agentic workflow
+No test or lint commands are currently defined in the project configuration.
+For behavior changes, add meaningful tests and run the relevant checks available;
+report any checks that could not be run. Documentation-only changes do not need
+application tests.
 
-- The main agent owns requirements, design decisions, coordination, integration
-  review, and the final report. It may edit documentation directly; delegate
-  application code, tests, scripts, and tooling changes to an implementation worker.
-- Use one worker by default. The worker owns tests, implementation, focused
-  verification, and self-review; do not split ordinary testing and coding across
-  separate agents. Workers must not spawn further agents.
-- Use `gpt-6-luna` with `high` reasoning for implementation, and `medium` for
-  delegated documentation. Use `gpt-6.1-sol` with `low` reasoning for independent
-  review, or `medium` for high-risk work. Report unavailable models instead of
-  silently substituting. Use `fork_turns="none"` for model overrides.
-- Give workers concise requirements, owned files, applicable instructions, and
-  required checks. Agree on shared interfaces before parallel work and assign
-  one owner per edited file.
-- Only the main agent changes branches, stages files, and creates commits in a
-  shared checkout. Serialize overlapping edits; use worktrees when useful.
-- The main agent reviews worker changes. Request independent review for security,
-  shared contracts, or broad lifecycle/concurrency changes. Return revisions to
-  the existing worker while its context remains useful.
-- Report what changed, checks actually run and their results, and remaining
-  blockers. Rerun affected checks after relevant changes; avoid repeating checks
-  on unchanged code without a reason.
+Keep the README's setup, run commands, and endpoint descriptions aligned with
+implemented behavior when those change. Do not commit local environments or
+`.env` files.
