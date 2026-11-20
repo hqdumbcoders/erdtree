@@ -4,6 +4,7 @@ from fastapi.routing import APIRouter
 
 router = APIRouter(tags=["root"])
 
+
 @router.get("/")
 async def root() -> Response:
     return RedirectResponse(url="/status")
