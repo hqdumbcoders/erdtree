@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.15"
 dependencies = [
     "fastapi>=0.143.3",
+    "ruff>=0.17.6",
     "sqlalchemy>=2.1.4",
     "uvicorn>=0.54.0",
 ]
@@ -20,3 +21,6 @@ build-backend = "uv_build"
 [tool.uv.build-backend]
 module-name = "app"
 module-root = ""
+
+[tool.ruff.lint]
+extend-select = ["I"]

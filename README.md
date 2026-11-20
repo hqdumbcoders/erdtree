@@ -4,7 +4,10 @@ Core service for the Slotty platform, responsible for Slots and Products.
 
 ## Stack
 
-Python · FastAPI · SQLAlchemy · Uvicorn · uv
+- Python >= 3.15
+- FastAPI 
+- SQLAlchemy 
+- uv
 
 ## Development requirements
 
@@ -16,9 +19,15 @@ Python · FastAPI · SQLAlchemy · Uvicorn · uv
 
 Run from the repository root:
 
+Preparation stage
+```sh
+uv python install 3.15
+uv python pin 3.15
+```
+
 ```sh
 make init  # Create .venv and sync dependencies
-make run   # Start the API at http://localhost:8000
+make run   # Start the API at http://0.0.0.0:8000
 ```
 
 Without Make:
