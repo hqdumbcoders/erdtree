@@ -37,6 +37,13 @@ uv sync
 uv run uvicorn app.main:app --host localhost --port 8000
 ```
 
+Run with Docker Compose:
+
+```sh
+docker compose up
+docker compose up --build # use if you need to rebuild image for the service
+```
+
 ## Useful endpoints
 
 - `/docs` — interactive API documentation
